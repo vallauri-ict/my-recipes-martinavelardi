@@ -6,8 +6,9 @@ import { IngredientModel } from '../models/ingredient.model';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
+
 export class ShoppingListComponent implements OnInit {
-  ingredients :IngredientModel[] = [
+  ingredients: IngredientModel[] = [
     new IngredientModel("Pasta", 500),
     new IngredientModel("Pomodoro", 2)
   ];
@@ -17,4 +18,15 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onIngredientAdded(newIngredient: IngredientModel) {
+    let ingredientFound = false;
+    for (const item of this.ingredients) {
+      if (item.name.toLowerCase() == newIngredient.name.toLowerCase()) {
+        ingredientFound = true;
+        item.amount += newIngredient.amount;
+        break;
+      }
+    }
+    this.ingredients.push(newIngredient);
+  }
 }
